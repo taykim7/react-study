@@ -130,3 +130,60 @@ repeatCB(5, (idx) => {
 repeatCB(5, (idx) => {
   console.log(idx * 2);
 });
+
+// 스코프 - 범위, 번수나 함수에 접근하거나 호출할 수 있는 범위
+
+// 객체 - 여러가지 값을 동시에 저장할 수 있는 자료형
+let obj1 = new Object() // 객체 생성자 방식
+let obj2 = {}; // 객체 리터럴 방식 (대부분 사용)
+
+// 객체 프로퍼티 (객체 속성)
+let person = {
+  // key: value
+  name: '김테이',
+  age: 30,
+  job: 'fe'
+};
+
+// 특정 프로퍼티에 접근 (점 표기법)
+let myName = person.name;
+
+// 특정 프로퍼티에 접근 (괄호 표기법)
+let myAge = person['age'];
+let property = 'job'
+let myJob = person[property]
+
+// 새로운 프로퍼티 추가, 수정하기
+person.sx = '남자';
+person['weight'] = 68;
+person.name = '김태태'
+person[property] = '백수'
+
+// 프로퍼티 삭제하기 - delete 연산자 사용
+delete person.sx;
+delete person['weight'];
+
+// 프로퍼티 존재 유무 확인하기 - in 연산자 사용
+let result1 = 'name' in person;
+console.log(result1); // true
+
+// 상수 객체 - const 객체
+const animal = {
+  type: '고양이',
+  name: '냥이',
+}
+
+// 상수 객체 프로퍼티에 추가, 수정, 삭제는 가능함
+animal.age = 2;
+animal.type = '개'
+delete animal.age;
+
+// 메서드 - 값이 함수인 프로퍼티
+const student = {
+  name: '탱',
+  // 메서드
+  sayHi() {
+    console.log('hi')
+  }
+}
+student.sayHi();
