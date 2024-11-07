@@ -62,3 +62,71 @@ console.log(res) // => 짝수
 // 조건문 if switch
 
 // 반복문 for(초기식; 조건식; 증감식) 
+
+// 자바스크립트에서는 함수 선언을 함수 호출보다 늦게해도 호출된다.
+// 그 이유는 자바스크립트의 호이스팅!
+
+// 함수 표현식1 - 함수 선언식O
+function funcA() {
+  console.log('hi')
+}
+let varA = funcA;
+varA();
+funcA(); // 함수 선언으로 호출도 가능
+
+// 함수 표현식2 - 함수 선언식X
+let varB = function funcB() {
+  console.log('hi')
+}
+varB()
+// funcB() 함수 호출은 불가
+
+// 함수 표현식3 - 익명 함수 활용
+let varC = function() {
+  console.log('hi')
+}
+varC()
+
+// 화살표 함수
+let varD = () => {
+  console.log('hi')
+}
+varC();
+
+// 콜백 함수 - 자신이 아닌 다른 함수에 인수로써 전달되는 함수
+function main(value) {
+  value(); // 인수를 호출함
+}
+function sub() {
+  console.log('sub');
+}
+main(sub); // 여기서 sub가 콜백함수!
+// '콜백' : 나중에 실행되는 느낌
+// 즉, 콜백함수로 원하는 타이밍에 호출되도록 할 수 있음
+
+// 콜백 함수의 활용
+function repeat(count) {
+  for (let idx=1; idx<=count; idx++) {
+    console.log(idx);
+  }
+}
+function repeatDouble(count) {
+  for (let idx=1; idx<=count; idx++) {
+    console.log(idx * 2);
+  }
+}
+repeat(5);
+repeatDouble(5);
+
+// 구조가 흡사할 경우 콜백 함수를 활용할 수 있음
+function repeatCB(count, callback) {
+  for (let idx=1; idx<=count; idx++) {
+    callback(idx);
+  }
+}
+repeatCB(5, (idx) => {
+  console.log(idx);
+});
+repeatCB(5, (idx) => {
+  console.log(idx * 2);
+});
