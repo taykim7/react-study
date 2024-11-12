@@ -36,3 +36,77 @@ const func = ({name, age, hobby}) => {
   console.log(name, age, hobby)
 }
 func(person);
+
+// Spread 연산자
+let arr1 = [1, 2, 3];
+let arr2 = [4, ...arr1, 5, 6]
+let abj1 = {
+  a: 1,
+  b: 2,
+}
+let abj2 = {
+  ...abj1,
+  c: 3,
+  d: 4,
+}
+function funcA(p1, p2, p3) {
+  console.log(p1, p2, p3);
+}
+funcA(...arr1);
+
+// Rest 매개변수 (나머지 매개변수)
+function funcB(one, ...rest) {
+  console.log(one); // 1
+  console.log(rest); // [2, 3]
+}
+funcB(...arr1)
+
+// 원시타입과 객체타입은 값이 저장되거나 복사되는 과정이 다르다.
+// 원시타입(불변값) : 값 자체로써 변수에 저장되고 복사된다. (Number, String, Boolean 등)
+// 객체타입(가변값) : 참조값을 통해 변수에 저장되고 복사된다. (Object, Array, Function 등)
+
+// 얕은 복사 : 객체의 참조값을 복사하여 원본 객체가 수정될 수 있음
+let o1 = {name: '김테이'} // <= 원본!
+let o2 = o1;
+o2.name = '김태태'
+console.log(o1.name) // 김태태 (원본 변경됨!)
+
+// 깊은 복사 : 새로운 객체를 생성하면서 프로퍼티만 따로 복사하여 원본 객체가 수정될 일이 없어서 안전!
+let o3 = {...o1};
+o3.name = '김형태'
+console.log(o1.name) // 김태태 (원본 변경안됨!)
+
+// 얕은 비교
+console.log(o1 === o2); // true 
+console.log(o1 === o3); // false
+
+// 깊은 비교
+console.log(JSON.stringify(o1) === JSON.stringify(o2)) // true 
+console.log(JSON.stringify(o1) === JSON.stringify(o3)) // false 
+
+// 배열과 함수도 사실 객체다!
+// 배열은 객체에 순차 저장, 순회 등이 추가된 기능
+// 함수는 객체에 호출, 선언 등이 추가된 기능
+
+// 배열 순회
+// for of 반복문 : 배열에 있는 값을 순회
+for(let item of arr1) {
+  console.log(item)
+  // 1
+  // 2
+  // 3
+}
+// 객체 순회
+// Object.keys 사용 : 객체에서 key 값들만 뽑아서 새로운 배열로 반환
+let keys = Object.keys(person);
+console.log(keys) // [name, age, hobby]
+// Object.values 사용 : 객체에서 value 값들만 뽑아서 새로운 배열로 반환
+let values = Object.values(person)
+console.log(values) // ['김테이', 30, '낮잠]
+// for in 반복문
+for(let key in arr1) {
+  console.log(key)
+  // 0
+  // 1
+  // 2
+}
