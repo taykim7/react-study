@@ -88,6 +88,8 @@ console.log(JSON.stringify(o1) === JSON.stringify(o3)) // false
 // 배열은 객체에 순차 저장, 순회 등이 추가된 기능
 // 함수는 객체에 호출, 선언 등이 추가된 기능
 
+console.log('==================================')
+
 // 배열 순회
 // for of 반복문 : 배열에 있는 값을 순회
 for(let item of arr1) {
@@ -111,6 +113,8 @@ for(let key in arr1) {
   // 1
   // 2
 }
+
+console.log('==================================')
 
 // 배열 메서드 - 요소 조작
 let numArr = [1, 2, 3];
@@ -138,7 +142,9 @@ const concatResult = numArr.concat(numArr2);
 console.log(numArr) // [0, 2, 3, 4, 5]
 console.log(concatResult) // [0, 2, 3, 4, 7, 7, 7] -- concat은 두 배열을 이어 붙혀서 새로운 배열을 반환
 
-// 배열메서드 - 순회와 탐색
+console.log('==================================')
+
+// 배열 메서드 - 순회와 탐색
 let doubleArr = []
 numArr.forEach((item)=>{
   doubleArr.push(item * 2);
@@ -159,3 +165,42 @@ console.log(findIndexResult) // 2 -- 홀수의 첫번째 index가 2다.
 
 const findResult = numArr.find((item) => item % 2 !== 0) 
 console.log(findResult) // 3 -- findIndex와 비슷하지만 index가 아닌 요소를 반환함
+
+console.log('==================================')
+
+// 배열 메서드 - 배열 변형
+let objArr = [
+  {name: '태태', hobby: '수영'},
+  {name: '테이', hobby: '헬스'},
+  {name: '형태', hobby: '야식'},
+]
+const filterResult = objArr.filter((item) => item.hobby === '야식');
+console.log(filterResult) // [{name: '형태', hobby: '야식'}] 
+// filter은 기존 배열에서 조건을 만족하는 요소들만 필터링하여 새로운 배열들로 반환
+
+const mapResult = objArr.map((item) => {
+  return item.hobby = '공부'
+})
+console.log(mapResult) // ['공부', '공부', '공부']
+console.log(objArr) // objArr의 hobby 가 다 '공부'로 바뀜. 즉, 새로운 배열도 반환하고 원본도 바꿈
+// map은 배열의 모든 요소를 순회하면서, 각각 콜백함수를 실행하고 그 결과값을 모아서 새로운 배열로 반환
+
+let nameArr = objArr.map((item) => item.name);
+console.log(nameArr) // ['태태', '테이', '형태'] -- map으로 단순 데이터만 추출할 수 있음
+
+let stringArr = ['banana', 'apple', 'dog'];
+let numArr3 = [3, 52, 1, 20, 7, 2];
+stringArr.sort()
+console.log(stringArr) // ['apple', 'banana', 'dog'] -- sort는 사전 순으로 정렬된다.
+numArr3.sort()
+console.log(numArr3) // 그냥 sort로는 숫자 비교는 안됨 (근데 왜 되는거지)
+numArr3.sort((a, b) => a > b)
+console.log(numArr3) // 암튼 뭐 기준을 정해야한다고함
+
+const toSortedResult = stringArr.toSorted();
+console.log(toSortedResult)
+
+const joinResult = stringArr.join();
+console.log(joinResult) // apple,banana,dog
+const joinResult2 = stringArr.join(' & ');
+console.log(joinResult2) // apple & banana & dog
