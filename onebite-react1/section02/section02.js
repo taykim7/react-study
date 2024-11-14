@@ -137,3 +137,25 @@ let numArr2 = [7, 7, 7]
 const concatResult = numArr.concat(numArr2);
 console.log(numArr) // [0, 2, 3, 4, 5]
 console.log(concatResult) // [0, 2, 3, 4, 7, 7, 7] -- concat은 두 배열을 이어 붙혀서 새로운 배열을 반환
+
+// 배열메서드 - 순회와 탐색
+let doubleArr = []
+numArr.forEach((item)=>{
+  doubleArr.push(item * 2);
+})
+console.log(doubleArr) // [0, 4, 6, 8, 10]
+
+const includesResult = numArr.includes(0);
+console.log(includesResult) // true -- 0이 있다.
+
+const indexOfResult = numArr.indexOf(3);
+console.log(indexOfResult) // 2 -- 3의 index가 2다.
+
+const findIndexResult = numArr.findIndex((item) => item % 2 !== 0 )
+console.log(findIndexResult) // 2 -- 홀수의 첫번째 index가 2다.
+
+// indexOf는 얕은 비교! 객체 타입의 요소를 가진 배열에서는 못 찾음 ***
+// findIndex는 깊은 비교! 객체 타입의 요소를 가진 배열에서도 잘 찾음 ***
+
+const findResult = numArr.find((item) => item % 2 !== 0) 
+console.log(findResult) // 3 -- findIndex와 비슷하지만 index가 아닌 요소를 반환함
