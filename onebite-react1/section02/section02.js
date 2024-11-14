@@ -96,6 +96,7 @@ for(let item of arr1) {
   // 2
   // 3
 }
+
 // 객체 순회
 // Object.keys 사용 : 객체에서 key 값들만 뽑아서 새로운 배열로 반환
 let keys = Object.keys(person);
@@ -110,3 +111,29 @@ for(let key in arr1) {
   // 1
   // 2
 }
+
+// 배열 메서드 - 요소 조작
+let numArr = [1, 2, 3];
+const pushResult= numArr.push(4, 5, 6)
+console.log(pushResult) // 6 -- push메서드는 length를 반환함
+
+const popResult = numArr.pop();
+console.log(popResult) // 6 -- pop은 맨 뒤에 있는 item을 빼고 반환함
+
+const shiftResult = numArr.shift();
+console.log(shiftResult) // 1 -- shift는 맨 앞에 있는 item을 빼고 반환함
+
+const unshiftResult = numArr.unshift(0);
+console.log(unshiftResult) // 5 -- unshift는 요소를 맨 앞에 붙히고 length를 반환함
+
+// shift, unshift는 push와 pop보다는 느리다.
+// 왜냐면 앞 둘은 맨 앞에걸 제거하거나 붙히면서 다른 요소들을 옮겨야함! (비효율적) ***
+
+const sliceResult = numArr.slice(2, 4);
+console.log(numArr) // [0, 2, 3, 4, 5]
+console.log(sliceResult) // [3, 4] -- slice는 원본 배열을 자르지 않는다!
+
+let numArr2 = [7, 7, 7]
+const concatResult = numArr.concat(numArr2);
+console.log(numArr) // [0, 2, 3, 4, 5]
+console.log(concatResult) // [0, 2, 3, 4, 7, 7, 7] -- concat은 두 배열을 이어 붙혀서 새로운 배열을 반환
