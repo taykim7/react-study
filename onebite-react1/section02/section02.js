@@ -204,3 +204,20 @@ const joinResult = stringArr.join();
 console.log(joinResult) // apple,banana,dog
 const joinResult2 = stringArr.join(' & ');
 console.log(joinResult2) // apple & banana & dog
+
+console.log('==================================')
+
+// Date 객체
+let date1 = new Date('2024/11/15/10:10:10')
+let date2 = new Date(2024,11,15,10,10,10)
+
+// 타임 스탬프 -- 특정 시간이 1970.01.01 00:00:00 로부터 몇 ms가 지낫는지 의미하는 숫자값
+// 1970.01.01 00:00:00 -- 협정 세계 시 (utc) 공식적으로 시간이 시작되는 지점
+let ts1 = date1.getTime();
+let date3 = new Date(ts1);
+
+// 시간을 여러 포맷으로 추출하기
+console.log(date1.toDateString()); // Fri Nov 15 2024
+console.log(date1.toLocaleString()); // 2024. 11. 15. 오전 10:10:10
+
+
