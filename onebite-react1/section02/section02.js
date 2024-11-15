@@ -220,4 +220,14 @@ let date3 = new Date(ts1);
 console.log(date1.toDateString()); // Fri Nov 15 2024
 console.log(date1.toLocaleString()); // 2024. 11. 15. 오전 10:10:10
 
+console.log('==================================')
 
+// 자바스크립트는 기본적으로 동기적으로 코드를 실행함
+console.log(1)
+setTimeout(()=>{
+  console.log(2)
+}, 3000);
+console.log(3)
+// ==> 1 3 2
+// 자바스크립트는 쓰레드가 1개.
+// 자바스크립트의 비동기 작업은 Web APIs 브라우저가 관리하는 별도의 영역에서 실행된다.
