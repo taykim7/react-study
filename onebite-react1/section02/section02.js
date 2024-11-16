@@ -266,7 +266,7 @@ console.log(3)
 
 // **************************************
 
-// 비동기 - 콜백함수 활용
+// 비동기 처리 - 콜백함수 활용
 function add(a, b, callback) {
   setTimeout(()=> {
     const sum = a + b;
@@ -321,5 +321,103 @@ gotoWork(someone, (result)=> {
 // 작업1, 작업2, 작업3 차례대로 수행
 // ==> 콜백지옥... 인덴트(들여쓰기)가 점점 깊어짐
 
+console.log('==================================')
 
+// 비동기 처리 - Promise 활용
+// Promise: 비동기 작업을 효율적으로 처리할 수 있도록 도와주는 자바스크립트 내장 객체
+// 비동기 작업 실행, 비동기 작업 상태 관리, 비동기 작업 결과 저장, 비동기 작업 병렬 실행, 비동기 작업 다시 실행 등...
 
+// Promise 상태 1 : 대기(Pending) - 아직 작업이 완료되지 않은 상태
+// Promise 상태 2 : 성공(Fulfilled) - 비동기 작업이 성공적으로 마무리된 상태
+// Promise 상태 3 : 실패(Rejected) - 비동기 작업이 실패한 상태 (ex 네트워크 에러 등)
+
+// 상태1 → 상태2 : 해결(resolve)
+// 상태1 → 상태3 : 실패(reject)
+
+const promise = new Promise((resolve, reject)=>{
+  // executor 함수 : 비동기 작업을 실행하는 함수 ***
+
+  // 매개변수 resolve() : 비동기 작업을 성공 상태로 바꿈
+  // 매개변수 reject() : 비동기 작업을 실패 상태로 바꿈
+
+  setTimeout(() => {
+    console.log('안녕하세요');
+    // resolve('작업끝')
+    reject('작업 실패')
+  }, 1000);
+});
+
+console.log(promise);
+// ==> PromiseState로 'pending' 상태인걸 확인할 수 있음, 1초 대기 중이라 PromiseResult는 undefined
+
+setTimeout(()=>{
+  console.log(promise);
+}, 3000)
+// resolve ==> 3초 대기하니 PromiseState로 'fulfilled' 상태인걸 확인할 수 있음, PromiseResult는 '작업끝'
+// reject ==> Uncaught (in promise) 작업 실패, rejected 상태, '작업 실패'
+
+const promise2 = new Promise((resolve, reject)=>{
+  setTimeout(()=>{
+    // const num = 10;
+    const num = '어쩌구';
+    if (typeof num === 'number') {
+      resolve(num + 10);
+    } else {
+      reject('숫자가 아닙니다');
+    }
+  }, 2000)
+})
+
+// promise 객체의 then 메서드
+promise2.then((value)=> {
+  console.log('then : ' + value)
+  // resolve => then : 20
+  // reject => 실행안함
+})
+// then 은 성공했을 때만 수행함
+
+// promise 객체의 catch 메서드
+promise2.catch((value)=>{
+  console.log('catch : ' + value)
+  // resolve => 실행안함
+  // reject => catch : 숫자가 아닙니다.
+})
+// catch 는 실패버전의 then
+
+// Promis chaining *** 
+// then은 promise를 그대로 반환하기 때문에 그냥 뒤에다 catch를 붙혀서 사용할 수 있음
+promise2.then((value)=> {
+  console.log('then2 : ' + value)
+}).catch((value)=>{
+  console.log('catch2 : ' + value)
+})
+
+// Promise 활용하기
+function add10(num) {
+  const promise3 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (typeof num === 'number') {
+        resolve(num + 10);
+      } else {
+        reject('num이 숫자가 아닙니다');
+      }
+    }, 2000);
+  });
+
+  // promise를 반환함
+  return promise3;
+}
+
+add10(1).then((result) => {
+  console.log(result);
+  // 콜백함수를 한번 더 호출
+  return add10(result);
+}).then((result) => {
+  console.log(result);
+  return add10('한글인데요');
+}).then((result) => {
+  console.log(result);
+}).catch((error) => {
+  console.log(error);
+});
+// ==> 11 21 num이 숫자가 아닙니다.
