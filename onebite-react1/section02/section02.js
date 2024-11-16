@@ -424,3 +424,29 @@ add10(1).then((result) => {
 
 // ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
+// 비동기 처리 - async await 활용
+// async : 어떤 함수를 비동기 함수로 만들어주는 키워드
+// *** 함수를 함수의 결과값을 갖는 '프로미스'를 반환하도록 변환해주는 키워드
+
+async function getData() {
+  return {
+    name: '김테이',
+    id: 'tayKim'
+  }
+}
+console.log(getData()); // Promise {<fulfilled>: {…}}
+
+// await : async 함수 내부에서만 사용이 가능한 키워드
+// *** 비동기 함수가 다 처리되기를 기다리게 하는 키워드
+
+async function printData() {
+  // getData().then((result) => {
+  //   console.log(result)
+  // })
+
+  // ↓ 더 간결하게 바뀜
+
+  const data = await getData();
+  console.log(data);
+}
+printData();
