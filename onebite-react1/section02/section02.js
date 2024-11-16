@@ -231,3 +231,95 @@ console.log(3)
 // ==> 1 3 2
 // 자바스크립트는 쓰레드가 1개.
 // 자바스크립트의 비동기 작업은 Web APIs 브라우저가 관리하는 별도의 영역에서 실행된다.
+
+// **************************************
+// ★ 동기 : 여러개의 작업을 순서대로 하나씩 처리하는 것 (동기적으로 처리한다)
+// 하나씩 작업을 처리하다보니 각각의 작업 시간을 기다림 => 전체 성능을 악화시킴
+// 그래서 비동기로 해결한다.
+// ★ 비동기 : 작업을 순서대로 처리하지 않음 (비동기적으로 처리한다)
+// 여러 작업이 있을 때 앞에 작업이 종료되지 않아도 기다릴 필요없이 다음 작업을 수행한다.
+// 각각의 작업의 결과값을 활용하고 싶다면
+// 각각의 작업의 콜백함수를 붙혀서 처리한다.
+
+// function test1() {
+//   setTimeout(() => {
+//     console.log('test1');
+//   }, 3000)
+// }
+// function test2() {
+//   setTimeout(() => {
+//     console.log('test2');
+//   }, 2000)
+// }
+// function test3() {
+//   setTimeout(() => {
+//     console.log('test3');
+//   }, 1000)
+// }
+
+// test1();
+// test2();
+// test3();
+
+// ==> test3 test2 test1 로 출력된다.
+// 왜? setTimeOut이 web api 메서드라서 브라우저에서 별도로 실행되어 비동기로 수행된다.
+
+// **************************************
+
+// 비동기 - 콜백함수 활용
+function add(a, b, callback) {
+  setTimeout(()=> {
+    const sum = a + b;
+    callback(sum);
+  }, 3000);
+}
+add(4, 2, (value)=> {
+  console.log(value)
+});
+// 1차로 setTimeout, 2차로 콜백함수를 실행함
+
+// 작업1
+function gotoWork(name, callback) {
+  console.log('============== 작업1 수행 중 ==============')
+  setTimeout(()=> {
+    const result = `작업1: ${name}님은 출근 중`;
+    callback(result);
+  }, 3000)
+  console.log('============== 작업1 완료 ==============')
+}
+
+// 작업2
+function startWork(name, callback) {
+  console.log('============== 작업2 수행 중 ==============')
+  setTimeout(()=>{
+    const result = `작업2: ${name}님은 일 하는 중`;
+    callback(result);
+  }, 2000)
+  console.log('============== 작업2 완료 ==============')
+}
+
+// 작업3
+function endWork(name, callback) {
+  console.log('============== 작업3 수행 중 ==============')
+  setTimeout(()=>{
+    const result = `작업3: ${name}님은 퇴근했어요`;
+    callback(result);
+  }, 0)
+  console.log('============== 작업3 완료 ==============')
+}
+
+const someone = '태태'
+gotoWork(someone, (result)=> {
+  console.log(result)
+  startWork(someone, (result)=>{
+    console.log(result)
+    endWork(someone, ((result)=> {
+      console.log(result)
+    }))
+  });
+})
+// 작업1, 작업2, 작업3 차례대로 수행
+// ==> 콜백지옥... 인덴트(들여쓰기)가 점점 깊어짐
+
+
+
