@@ -1,18 +1,14 @@
 import './App.css'
-
-const Header = () => {
-  return (
-    <header>
-      <h1>헤더</h1>
-    </header>
-  )
-};
+import Header from './components/Header';
+import Main from './components/Main';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <>
       <Header />
-      <h1>리액트!</h1>
+      <Main />
+      <Footer />
     </>
   )
 };
