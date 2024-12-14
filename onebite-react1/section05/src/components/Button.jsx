@@ -1,8 +1,18 @@
 const Button = ({text='버튼', color='green', children}) => {
-  return <button style={{color: color}}>
+
+  const onClickButton = (e) => {
+    console.log(text);
+    // 이벤트 객체
+    console.log(e); // SyntheticBaseEvent
+  };
+
+  return (
+  <button onClick={onClickButton}
+    style={{color: color}}>
     {text}
     {children}
-  </button>;
+  </button>
+  );
 };
 
 // Button.defaultProps = {
