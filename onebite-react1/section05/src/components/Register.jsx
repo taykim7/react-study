@@ -7,6 +7,7 @@ import { useState } from "react";
 // 4. 자기소개
 const Register = () => {
   
+  // 통합 State
   const [input, setInput] = useState({
     name: '',
     birth: '',
@@ -14,51 +15,38 @@ const Register = () => {
     bio: '',
   })
 
-  const onChangeName = (e) => {
+  // 통합 이벤트 핸들러
+  const onChage = (e) => {
     setInput({
       ...input,
-      name: e.target.value
+      [e.target.name]: e.target.value
     })
   }
-  const onChangeBirth = (e) => {
-    setInput({
-      ...input,
-      birth: e.target.value
-    })
-  }
-  const onChangeCountry = (e) => {
-    setInput({
-      ...input,
-      country: e.target.value
-    })
-  }
-  const onChangeBio = (e) => {
-    setInput({
-      ...input,
-      bio: e.target.value
-    })
-  }
+
 
   return (
     <div>
       <div>
         <input
+          name="name"
           value={input.name}
-          onChange={onChangeName}
+          onChange={onChage}
           placeholder={"이름"}
         />
       </div>
       <div>
         <input
+          name="birth"
           type="date"
           value={input.birth}
-          onChange={onChangeBirth}
+          onChange={onChage}
         />
       </div>
       <div>
         <select
+        name="country"
           value={input.country}
-          onChange={onChangeCountry}>
+          onChange={onChage}>
           <option value=""></option>
           <option value="kr">한국</option>
           <option value="us">미국</option>
@@ -67,8 +55,9 @@ const Register = () => {
       </div>
       <div>
         <textarea
+          name="bio"
           value={input.bio}
-          onChange={onChangeBio}
+          onChange={onChage}
         />
       </div>
     </div>
