@@ -4,7 +4,7 @@ import Editor from './components/Editor'
 import List from './components/List'
 
 // state를 이용해야하는 모든 컴포넌트의 조상 => App.jsx
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 // 임시데이터
 const mockData = [
@@ -32,10 +32,23 @@ function App() {
   
   const [todos, setTodos] = useState(mockData);
 
+  // id의 레퍼런스
+  const idRef = useRef(0);
+
+  const onCreate = (content) => {
+    const newTodo = {
+      id: idRef.current++,
+      isDone: false,
+      content: content,
+      date: new Date().getTime()
+    }
+    setTodos([newTodo, ...todos]);
+  }
+
   return (
     <div className='App'>
       <Header/>
-      <Editor/>
+      <Editor onCreate={onCreate}/>
       <List/>
     </div>
   )
