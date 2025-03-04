@@ -7,30 +7,30 @@ import List from './components/List'
 import { useState, useRef } from 'react'
 
 // 임시데이터
-const mockData = [
-  {
-    id: 0,
-    isDone: false,
-    content: '공부좀하자',
-    date: new Date().getTime(),
-  },
-  {
-    id: 1,
-    isDone: false,
-    content: '빨래하기',
-    date: new Date().getTime(),
-  },
-  {
-    id: 2,
-    isDone: false,
-    content: '살빼라',
-    date: new Date().getTime(),
-  }
-];
+// const mockData = [
+//   {
+//     id: 0,
+//     isDone: false,
+//     content: '공부좀하자',
+//     date: new Date().getTime(),
+//   },
+//   {
+//     id: 1,
+//     isDone: false,
+//     content: '빨래하기',
+//     date: new Date().getTime(),
+//   },
+//   {
+//     id: 2,
+//     isDone: false,
+//     content: '살빼라',
+//     date: new Date().getTime(),
+//   }
+// ];
 
 function App() {
   
-  const [todos, setTodos] = useState(mockData);
+  const [todos, setTodos] = useState([]);
 
   // id의 레퍼런스
   const idRef = useRef(0);
