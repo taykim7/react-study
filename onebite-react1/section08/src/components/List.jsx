@@ -2,7 +2,7 @@ import './List.css'
 import TodoItem from './TodoItem';
 import { useState } from 'react';
 
-const List = ({todos, onUpdate}) => {
+const List = ({todos, onUpdate, onDelete}) => {
 
   // 검색어 state
   const [search, setSearch] = useState('');
@@ -41,6 +41,7 @@ const List = ({todos, onUpdate}) => {
               key={todo.id}
               {...todo}
               onUpdate={onUpdate}
+              onDelete={onDelete}
             />
           )
         })}
