@@ -26,9 +26,30 @@ const List = ({todos, onUpdate, onDelete}) => {
   // 필터된 데이터들
   const filteredTodos = getFilteredData();
 
+  // todos의 양이 길어질 수록 오래걸림
+  const getAnalyzedData = () => {
+    console.log('데이터 호출');
+    
+    const totalCount = todos.length;
+    const doneCount = todos.filter((todo)=>todo.isDone).length;
+    const notDoneCount = totalCount - doneCount;
+    return {
+      totalCount,
+      doneCount,
+      notDoneCount,
+    }
+  }
+
+  const {totalCount, doneCount, notDoneCount } = getAnalyzedData()
+
   return (
     <div className="List">
       <h4>Todo List 🌱</h4>
+      <div>
+        <div>total: {totalCount}</div>
+        <div>done: {doneCount}</div>
+        <div>notDone: {notDoneCount}</div>
+      </div>
       <input
         value={search}
         onChange={onChangeSearch}
