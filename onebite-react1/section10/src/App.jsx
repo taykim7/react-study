@@ -4,7 +4,7 @@ import Editor from './components/Editor'
 import List from './components/List'
 
 // state를 이용해야하는 모든 컴포넌트의 조상 => App.jsx
-import { useState, useRef, useReducer } from 'react'
+import { useState, useRef, useReducer, useCallback } from 'react'
 
 const mockData = [
   // {
@@ -53,14 +53,7 @@ function App() {
   // id의 레퍼런스
   const idRef = useRef(0);
 
-  const onCreate = (content) => {
-    // const newTodo = {
-    //   id: idRef.current++,
-    //   isDone: false,
-    //   content: content,
-    //   date: new Date().getTime()
-    // }
-    // setTodos([newTodo, ...todos]);
+  const onCreate = useCallback((content) => {
     dispatch({
       type: 'CREATE',
       data: {
@@ -70,21 +63,21 @@ function App() {
         date: new Date().getTime()
       }
     })
-  }
+  }, []);
 
-  const onUpdate = (targetId) => {
+  const onUpdate = useCallback((targetId) => {
     dispatch({
       type: 'UPDATE',
       targetId: targetId,
     })
-  }
+  }, []);
 
-  const onDelete = (targetId) => {
+  const onDelete = useCallback((targetId) => {
     dispatch({
       type: 'DELETE',
       targetId: targetId,
     })
-  }
+  }, []);
 
   return (
     <div className='App'>
