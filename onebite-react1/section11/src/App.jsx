@@ -4,7 +4,7 @@ import Editor from './components/Editor'
 import List from './components/List'
 
 // state를 이용해야하는 모든 컴포넌트의 조상 => App.jsx
-import { useState, useRef, useReducer, useCallback } from 'react'
+import { useState, useRef, useReducer, useCallback, createContext } from 'react'
 
 const mockData = [
   // {
@@ -45,6 +45,10 @@ function reducer(state, action) {
   }
 }
 
+// context는 주로 외부에서 선언한다.
+// - App 내부에 하게되면 계속 새로운 context를 생성하게됨.
+export const TodoContext = createContext();
+
 function App() {
   
   // const [todos, setTodos] = useState([]);
@@ -82,8 +86,15 @@ function App() {
   return (
     <div className='App'>
       <Header/>
-      <Editor onCreate={onCreate}/>
-      <List todos={todos} onUpdate={onUpdate} onDelete={onDelete}/>
+      <TodoContext.Provider value={{
+        todos,
+        onCreate,
+        onUpdate,
+        onDelete,
+      }}>
+        <Editor />
+        <List todos={todos} onUpdate={onUpdate} onDelete={onDelete}/>
+      </TodoContext.Provider>
     </div>
   )
 }
