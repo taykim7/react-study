@@ -4,7 +4,7 @@ import Editor from './components/Editor'
 import List from './components/List'
 
 // state를 이용해야하는 모든 컴포넌트의 조상 => App.jsx
-import { useState, useRef, useReducer, useCallback, createContext } from 'react'
+import { useState, useRef, useReducer, useCallback, createContext, useMemo } from 'react'
 
 const mockData = [
   // {
@@ -47,7 +47,14 @@ function reducer(state, action) {
 
 // context는 주로 외부에서 선언한다.
 // - App 내부에 하게되면 계속 새로운 context를 생성하게됨.
-export const TodoContext = createContext();
+// export const TodoContext = createContext();
+// memo 최적화가 안되는 문제 발생 => 두 개의 context로 분리한다.
+
+// 변경되는 context
+export const TodoStateContext = createContext();
+
+// 변경되지 않는 context
+export const TodoDispatchContext = createContext();
 
 function App() {
   
@@ -83,18 +90,21 @@ function App() {
     })
   }, []);
 
+  // 변경되지 않는 context엔 useMemo
+  const memoizedDispatch = useMemo(()=>{
+    return { onCreate, onUpdate, onDelete };
+  }, []);
+
   return (
     <div className='App'>
       <Header/>
-      <TodoContext.Provider value={{
-        todos,
-        onCreate,
-        onUpdate,
-        onDelete,
-      }}>
+      <TodoStateContext.Provider value={todos}>
+        <TodoDispatchContext.Provider value={memoizedDispatch}>
         <Editor />
         <List />
-      </TodoContext.Provider>
+        </TodoDispatchContext.Provider>
+      </TodoStateContext.Provider>
+
     </div>
   )
 }
