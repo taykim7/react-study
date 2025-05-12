@@ -23,29 +23,6 @@ function App() {
   }
   return (
     <>
-      <Header
-        title={'헤더'}
-        leftChild={<Button text={'왼쪽'}/>}
-        rightChild={<Button text={'오른쪽'}/>}
-      />
-      <Button
-        text={'DEFAULT'}
-        onClick={()=>{
-        console.log('누름')
-      }}/>
-      <Button
-        text={'POSITIVE'}
-        type={"POSITIVE"}
-        onClick={()=>{
-        console.log('누름')
-      }}/>
-      <Button
-        text={'NEGATIVE'}
-        type={"NEGATIVE"}
-        onClick={()=>{
-        console.log('누름')
-      }}/>
-      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
