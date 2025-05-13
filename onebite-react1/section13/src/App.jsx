@@ -30,13 +30,19 @@ const mockData = [
 function reducer(state, action) {
   switch(action.type) {
     case 'CREATE':
-        return [action.data, ...state]
+      return [action.data, ...state]
     case 'UPDATE':
-        return state.map((item) => 
+      return state.map((item) => 
         String(item.id) === String(action.data.id)
           ? action.data
           : item
       );
+    case 'DELETE':
+      return state.filter((item) => 
+        String(item.id) !== String(action.id)
+      );
+    default:
+      return state;
   }
 }
 
@@ -70,6 +76,14 @@ function App() {
     })
   }
 
+  // 기존 일기 삭제
+  const onDelete = (id) => {
+    dispatch({
+      type: 'DELETE',
+      id,
+    })
+  }
+
   return (
     <>
       <button onClick={() => {
@@ -83,6 +97,13 @@ function App() {
       }}>
         일기 수정 테스트용 임시 버튼
       </button>
+
+      <button onClick={() => {
+        onDelete(1)
+      }}>
+        일기 삭제 테스트용 임시 버튼
+      </button>
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/new" element={<New />} />
