@@ -89,24 +89,6 @@ function App() {
 
   return (
     <>
-      <button onClick={() => {
-        onCreate(new Date().getTime(), 1, 'TEST')
-      }}>
-        일기 추가 테스트용 임시 버튼
-      </button>
-
-      <button onClick={() => {
-        onUpdate(1, new Date().getTime(), 3, '수정 테스트')
-      }}>
-        일기 수정 테스트용 임시 버튼
-      </button>
-
-      <button onClick={() => {
-        onDelete(1)
-      }}>
-        일기 삭제 테스트용 임시 버튼
-      </button>
-
       <DiaryStateContext.Provider value={data}>
         <DiaryDispatchContext.Provider
           value={{
