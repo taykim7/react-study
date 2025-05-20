@@ -1,6 +1,31 @@
 import './Editor.css';
 import EmotionItem from './Emotion';
 
+
+// 감정 데이터
+const emotionList = [
+  {
+    emotionId: 1,
+    emotionName: '완전좋음'
+  },
+  {
+    emotionId: 2,
+    emotionName: '좋음'
+  },
+  {
+    emotionId: 3,
+    emotionName: '그럭저럭'
+  },
+  {
+    emotionId: 4,
+    emotionName: '나쁨'
+  },
+  {
+    emotionId: 5,
+    emotionName: '완전나쁨'
+  },
+];
+
 const Editor = () => {
   return (
     <div className='Editor'>
@@ -10,12 +35,10 @@ const Editor = () => {
       </section>
       <section className='emotion_section'>
         <h4>오늘의 감정</h4>
-        <div>
-          <EmotionItem />
-          <EmotionItem />
-          <EmotionItem />
-          <EmotionItem />
-          <EmotionItem />
+        <div className='emotion_list_wrapper'>
+          {emotionList.map((item) => (
+            <EmotionItem key={item.emotionId} {...item} />
+          ))}
         </div>
       </section>
       <section className='content_section'></section>

@@ -1,7 +1,15 @@
 import './Emotion.css'
+import { getEmotionImage } from '../util/get-emotion-image';
 
-const EmotionItem = () => {
-  return <div>Emotion</div>
+const EmotionItem = ({emotionId, emotionName}) => {
+  return (
+    <div className='EmotionItem'>
+      <img className='emotion_img' src={getEmotionImage(emotionId)} />
+      <div className='emotion_name'>
+        {emotionName}
+      </div>
+    </div>
+  );
 }
 
 export default EmotionItem;
