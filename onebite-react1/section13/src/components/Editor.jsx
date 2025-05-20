@@ -1,5 +1,6 @@
 import './Editor.css';
 import EmotionItem from './Emotion';
+import Button from './Button';
 
 
 // 감정 데이터
@@ -43,8 +44,14 @@ const Editor = () => {
           ))}
         </div>
       </section>
-      <section className='content_section'></section>
-      <section className='button_section'></section>
+      <section className='content_section'>
+        <h4>오늘의 일기</h4>
+        <textarea placeholder='오늘은 어땠나요?' />
+      </section>
+      <section className='button_section'>
+        <Button text={'취소하기'} />
+        <Button text={'작성완료'} type={'POSITIVE'} />
+      </section>
     </div>
   )
 }
