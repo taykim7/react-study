@@ -57,20 +57,18 @@ const Editor = () => {
     let name = e.target.name;
     // 입력된 값
     let value = e.target.value;
-
+    
     // value값을 Date로 변환
     if (name === 'createdDate') {
       value = new Date(value);
     }
 
-    // state
+    // state 변경
     setInput({
       ...input,
       [name]: value,
     })
   }
-
-  const emotionId = 1;
 
   return (
     <div className='Editor'>
@@ -87,7 +85,19 @@ const Editor = () => {
         <h4>오늘의 감정</h4>
         <div className='emotion_list_wrapper'>
           {emotionList.map((item) => (
-            <EmotionItem key={item.emotionId} {...item} isSelected={ item.emotionId === emotionId } />
+            <EmotionItem 
+              onClick={() =>
+                onChangeInput({
+                  target: {
+                    name: 'emotionId',
+                    value: item.emotionId,
+                  },
+                })
+              }
+              key={item.emotionId}
+              {...item}
+              isSelected={ item.emotionId === input.emotionId }
+            />
           ))}
         </div>
       </section>
