@@ -11,11 +11,14 @@ const New = () => {
 
   // 저장하기
   const onSubmit = (input) => {
+    // 일기 생성
     onCreate(
       input.createdDate.getTime(),
       input.emotionId,
       input.content
     );
+    // 뒤로가기(Home) + 뒤로가기 방지
+    nav('/', { replace: true });
   };
 
   return (
