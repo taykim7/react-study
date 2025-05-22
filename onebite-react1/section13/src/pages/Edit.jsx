@@ -9,8 +9,8 @@ const Edit = () => {
   const params = useParams();
   const nav = useNavigate();
 
-  // 삭제 메서드 공급받기 
-  const {onDelete} = useContext(DiaryDispatchContext);
+  // 삭제, 수정 메서드 공급받기 
+  const {onDelete, onUpdate} = useContext(DiaryDispatchContext);
 
   // 저장된 데이터 공급받기
   const data = useContext(DiaryStateContext);
@@ -57,6 +57,21 @@ const Edit = () => {
   // const currentDiaryitem = getCurrentDiaryItem();
   // ==> 컴포넌트가 완전히 마운트되기 전이라 nav 후 에러발생!
 
+  // 일기 저장
+  const onSubmit = (input) => {
+    if (
+      window.confirm('일기를 정말 수정할까요?') 
+    ) {
+      onUpdate(
+        params.id,
+        input.createdDate.getTime(),
+        input.emotionId,
+        input.content
+      );
+      nav('/', {replace: true});
+    }
+  };
+
   return (
     <div>
       <Header
@@ -75,7 +90,7 @@ const Edit = () => {
           />
         }
       />
-      <Editor initData={curDiaryItem}/>
+      <Editor initData={curDiaryItem} onSubmit={onSubmit}/>
     </div>
   );
 };
