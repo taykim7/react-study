@@ -29,7 +29,8 @@ const Edit = () => {
     }
     // state에 저장
     setCurDiaryItem(currentDiaryitem);
-  }, [params.id, data]);
+  // }, [params.id, data]); // ⚠️ 리액트 라우트 업데이트로 인한 의존성 배열에서 제거
+  }, [params.id]);
 
   // 이벤트핸들러
   const onClickDelete = () => {
@@ -40,6 +41,13 @@ const Edit = () => {
       // 일기 삭제
       onDelete(params.id);
       nav('/', { replace: true });
+      
+      // ⚠️ 2024.11.22 리액트 라우트 업데이트로 인해 오류!
+      // 일기 삭제 후 '존재하지 않는 일기입니다.' alert 발생!
+      // 기존에는 navigate 함수가 동기적이었으나,
+      // 업데이트 후에는 비동기적이라 페이지 이동 중에도 기존 리액트 훅이나 이펙트들이 동작함.
+      // 따라서 일기 삭제 후 'data' state가 변경되어 useEffect가 다시 실행함.
+      // 그 시점에는 currentDiaryitem 가 존재하지 않기 때문!
     }
   };
 
