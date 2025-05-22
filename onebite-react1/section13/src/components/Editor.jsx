@@ -2,7 +2,7 @@ import './Editor.css';
 import EmotionItem from './Emotion';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 // 감정 데이터
@@ -45,7 +45,7 @@ const getStringedDate = (targetDate) => {
   return `${year}-${month}-${date}`;
 }
 
-const Editor = ({ onSubmit }) => {
+const Editor = ({ onSubmit, initData }) => {
   const [input, setInput] = useState({
     createdDate: new Date(),
     emotionId: 3,
@@ -53,6 +53,16 @@ const Editor = ({ onSubmit }) => {
   });
 
   const nav = useNavigate();
+
+  // 데이터가 변경될때마다 init
+  useEffect(() => {
+    if(initData) {
+      setInput({
+        ...initData,
+        createdDate: new Date(Number(initData.createdDate))
+      })
+    }
+  }, [initData]);
 
   // 이벤트핸들로
   const onChangeInput = (e) => {
