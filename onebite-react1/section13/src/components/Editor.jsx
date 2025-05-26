@@ -3,31 +3,7 @@ import EmotionItem from './Emotion';
 import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-
-
-// 감정 데이터
-const emotionList = [
-  {
-    emotionId: 1,
-    emotionName: '완전좋음'
-  },
-  {
-    emotionId: 2,
-    emotionName: '좋음'
-  },
-  {
-    emotionId: 3,
-    emotionName: '그럭저럭'
-  },
-  {
-    emotionId: 4,
-    emotionName: '나쁨'
-  },
-  {
-    emotionId: 5,
-    emotionName: '완전나쁨'
-  },
-];
+import { emotionList } from '../util/constants';
 
 const getStringedDate = (targetDate) => {
   // 날짜를 yyyy-mm-dd 로 변환한다
