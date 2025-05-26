@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import Editor from '../components/Editor';
 import { useContext, useEffect, useState } from "react";
 import { DiaryDispatchContext, DiaryStateContext } from "../App";
+import useDiary from "../hooks/useDiary";
 
 const Edit = () => {
   const params = useParams();
@@ -13,24 +14,27 @@ const Edit = () => {
   const {onDelete, onUpdate} = useContext(DiaryDispatchContext);
 
   // 저장된 데이터 공급받기
-  const data = useContext(DiaryStateContext);
-  const [curDiaryItem, setCurDiaryItem] = useState(); 
+  // const data = useContext(DiaryStateContext);
+  // const [curDiaryItem, setCurDiaryItem] = useState(); 
 
   // 아이디에 해당하는 데이터 찾기 (마운트된 이후 or id or data가 변경되면 실행)
-  useEffect(() => {
-    const currentDiaryitem = data.find(
-      (item) => String(item.id) === String(params.id)
-    );
+  // useEffect(() => {
+  //   const currentDiaryitem = data.find(
+  //     (item) => String(item.id) === String(params.id)
+  //   );
 
-    // 미존재시
-    if (!currentDiaryitem) {
-      window.alert('존재하지 않는 일기입니다.');
-      nav('/', {replace: true});
-    }
-    // state에 저장
-    setCurDiaryItem(currentDiaryitem);
-  // }, [params.id, data]); // ⚠️ 리액트 라우트 업데이트로 인한 의존성 배열에서 제거
-  }, [params.id]);
+  //   // 미존재시
+  //   if (!currentDiaryitem) {
+  //     window.alert('존재하지 않는 일기입니다.');
+  //     nav('/', {replace: true});
+  //   }
+  //   // state에 저장
+  //   setCurDiaryItem(currentDiaryitem);
+  // // }, [params.id, data]); // ⚠️ 리액트 라우트 업데이트로 인한 의존성 배열에서 제거
+  // }, [params.id]);
+
+  // 커스텀훅으로 교체
+  const curDiaryItem = useDiary(params.id);
 
   // 이벤트핸들러
   const onClickDelete = () => {
