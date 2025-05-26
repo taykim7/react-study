@@ -4,22 +4,23 @@ import Button from './Button';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { emotionList } from '../util/constants';
+import { getStringedDate } from '../util/get-stringed-date';
 
-const getStringedDate = (targetDate) => {
-  // 날짜를 yyyy-mm-dd 로 변환한다
-  let year = targetDate.getFullYear();
-  let month = targetDate.getMonth()+1;
-  let date = targetDate.getDate();
+// const getStringedDate = (targetDate) => {
+//   // 날짜를 yyyy-mm-dd 로 변환한다
+//   let year = targetDate.getFullYear();
+//   let month = targetDate.getMonth()+1;
+//   let date = targetDate.getDate();
   
-  if (month < 10) {
-    month = `0${month}`;
-  }
-  if (date < 10) {
-    date = `0${date}`;
-  }
+//   if (month < 10) {
+//     month = `0${month}`;
+//   }
+//   if (date < 10) {
+//     date = `0${date}`;
+//   }
 
-  return `${year}-${month}-${date}`;
-}
+//   return `${year}-${month}-${date}`;
+// }
 
 const Editor = ({ onSubmit, initData }) => {
   const [input, setInput] = useState({
