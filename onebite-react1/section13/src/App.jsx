@@ -1,5 +1,5 @@
 import './App.css'
-import { useReducer, useRef, createContext, useEffect, act } from 'react'
+import { useReducer, useRef, createContext, useEffect, act, useState } from 'react'
 import { Routes, Route } from "react-router-dom"
 import Home from './pages/Home'
 import New from './pages/New'
@@ -76,6 +76,10 @@ export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 function App() {
+
+  // 로딩
+  const [isLoading, setIsLoading] = useState(true);
+
   const [data, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
   useEffect(()=>{
@@ -83,7 +87,11 @@ function App() {
     if (!storedDate) return;
     const parsedDate = JSON.parse(storedDate);
 
-    if (!Array.isArray(parsedDate)) return;
+    if (!Array.isArray(parsedDate)) {
+      // 로딩 끝
+      setIsLoading(false);
+      return;
+    }
 
     // 가장 id 가 높은 값을 찾아야함
     let maxId = 0;
@@ -94,11 +102,13 @@ function App() {
     });
 
     idRef.current = maxId + 1;
-    
+
     dispatch({
       type: 'INIT',
       data: parsedDate,
-    })
+    });
+    // 로딩 끝
+    setIsLoading(false);
   }, []);
 
   // 새로운 일기 추가
@@ -133,6 +143,11 @@ function App() {
       type: 'DELETE',
       id,
     })
+  }
+
+  // 로딩 중
+  if (isLoading) {
+    return <div>데이터 로딩 중</div>
   }
 
   return (
