@@ -4,6 +4,7 @@ import { DiaryStateContext } from "../App";
 import Header from "../components/Header";
 import Button from '../components/Button';
 import DiaryList from "../components/DiaryList";
+import usePageTitle from '../hooks/usePageTitle';
 
 const getMontylyDate = (pivotDate, data) => {
   // 받아온 날짜의 월초 
@@ -19,6 +20,9 @@ const Home = () => {
 
   // 날짜
   const [pivotDate, setPivotDate] = useState(new Date());
+
+  // 타이틀 변경
+  usePageTitle('감정 일기장');
 
   // 해당하는 월의 데이터만 가져오기
   const monthlyData = getMontylyDate(pivotDate, data);

@@ -4,11 +4,15 @@ import Header from '../components/Header';
 import Button from '../components/Button';
 import Viewer from '../components/Viewer';
 import useDiary from "../hooks/useDiary";
+import usePageTitle from '../hooks/usePageTitle';
 
 const Diary = () => {
   // 현재 브라우저에 명시한 파라미터를 가져올 수 있음
   const params = useParams();
   const nav = useNavigate();
+
+  // 타이틀 변경
+  usePageTitle(`${params.id}번 일기`);
 
   const curDiaryItem = useDiary(params.id);
   if(!curDiaryItem) {
