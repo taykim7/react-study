@@ -79,19 +79,25 @@ function App() {
 
   // 로딩
   const [isLoading, setIsLoading] = useState(true);
-
   const [data, dispatch] = useReducer(reducer, []);
   const idRef = useRef(0);
+
   useEffect(()=>{
+
     const storedDate = localStorage.getItem('diary');
-    if (!storedDate) return;
+    if (!storedDate) {
+      return;
+    }
+    
     const parsedDate = JSON.parse(storedDate);
+
 
     if (!Array.isArray(parsedDate)) {
       // 로딩 끝
       setIsLoading(false);
       return;
     }
+
 
     // 가장 id 가 높은 값을 찾아야함
     let maxId = 0;
@@ -111,6 +117,7 @@ function App() {
     setIsLoading(false);
   }, []);
 
+
   // 새로운 일기 추가
   const onCreate = (createdDate, emotionId, content) => {
     dispatch({
@@ -123,7 +130,6 @@ function App() {
       }
     })
   }
-
   // 기존 일기 수정
   const onUpdate = (id, createdDate, emotionId, content) => {
     dispatch({
@@ -136,7 +142,6 @@ function App() {
       }
     })
   }
-
   // 기존 일기 삭제
   const onDelete = (id) => {
     dispatch({
@@ -146,9 +151,9 @@ function App() {
   }
 
   // 로딩 중
-  if (isLoading) {
-    return <div>데이터 로딩 중</div>
-  }
+  // if (isLoading) {
+  //   return <div>데이터 로딩 중</div>
+  // }
 
   return (
     <>
