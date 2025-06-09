@@ -86,6 +86,7 @@ function App() {
 
     const storedDate = localStorage.getItem('diary');
     if (!storedDate) {
+      setIsLoading(false);
       return;
     }
     
@@ -151,9 +152,9 @@ function App() {
   }
 
   // 로딩 중
-  // if (isLoading) {
-  //   return <div>데이터 로딩 중</div>
-  // }
+  if (isLoading) {
+    return <div>데이터 로딩 중</div>
+  } 
 
   return (
     <>
@@ -164,7 +165,7 @@ function App() {
             onUpdate,
             onDelete,
           }}
-        >
+          >
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/new" element={<New />} />
@@ -175,7 +176,7 @@ function App() {
         </DiaryDispatchContext.Provider>
       </DiaryStateContext.Provider>
     </>
-  )
+  );
 }
 
 export default App
